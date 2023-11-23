@@ -24,7 +24,9 @@ RUN git config --global user.name "vsivanat" && \
 
 RUN apt install build-essential -y 
 
-RUN zsh -c "$(curl -fsSL https://raw.github.com/xicodomingues/francinette/master/bin/install.sh)" | true
+RUN apt install lsb-release -y
+
+RUN apt install sudo -y
 
 COPY .zsh_aliase /root/.zsh_aliase
 
@@ -36,5 +38,10 @@ RUN wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.
 RUN chsh -s zsh
 
 RUN cat ~/.zsh_aliase >> ~/.zshrc
+
+RUN python3 -m pip install --upgrade pip setuptools && \
+	python3 -m pip install norminette
+
+RUN bash -c "$(curl -fsSL https://raw.github.com/xicodomingues/francinette/master/bin/install.sh)"
 
 CMD ["zsh"]
